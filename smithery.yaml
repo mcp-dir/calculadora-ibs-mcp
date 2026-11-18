@@ -1,0 +1,38 @@
+# Smithery configuration for Calculadora IBS
+# Schema: https://smithery.ai/docs/build/project-config
+# Remote HTTP MCP — server hosted at https://api.mcp.ai/p_calculadora-ibs
+
+name: calculadora-ibs-mcp
+displayName: "Calculadora IBS"
+description: >
+  **Calculadora de IBS** para IA. Calcule o IBS estadual e municipal de cada item, com alíquotas de referência por estado e município. Usa o código aberto oficial da Receita Federal (regime regular 1.6.1, Simples Nacional 0.0.6, base V0059 de 30/09/2026), sem recálculo próprio. Base V0059: só tem alíquotas de referência de 2026. Não substitui a análise do seu contador. Serviço independente, sem vínculo com a Receita Federal.
+
+version: 0.1.0
+license: MIT
+homepage: https://github.com/mcp-dir/calculadora-ibs-mcp
+repository: https://github.com/mcp-dir/calculadora-ibs-mcp
+
+tags:
+  - fiscal
+  - tributario
+  - reforma-tributaria
+  - cbs
+  - ibs
+  - brazil
+  - tax
+  - read-only
+  - calculadora-ibs
+
+# Remote HTTP MCP — sem startCommand local (servidor já hospedado)
+startCommand:
+  type: http
+  url: https://api.mcp.ai/p_calculadora-ibs
+
+auth:
+  type: oauth2
+  resourceMetadataUrl: https://api.mcp.ai/p_calculadora-ibs/.well-known/oauth-protected-resource
+  fallback:
+    type: agent-auth
+    description: >
+      Para clientes sem OAuth 2.1. O agente expõe uma tool authenticate(token).
+      Usuário gera o JWT em https://app.mcp.ai/agent-auth e cola no chat.
